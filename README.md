@@ -15,3 +15,7 @@ Path: /person
 Expects a query string from the user with a “name" property
 When present, output JSON to the client with this shape: { name: "name provided" }
 Without a name in the query string, force a “500” error
+
+
+
+<img width="1728" alt="basic express server uml" src="https://user-images.githubusercontent.com/91757275/173714744-81a4740c-9525-4620-8948-bc29b5e16614.png">
