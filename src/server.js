@@ -10,19 +10,19 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 
 app.use(logger);
-// app.use(validator);
 
 app.get('/person', validator, (req, res) => {
   let name = req.query.name;
-
-  if(!name) {
-    res.status(200).send('hello');
-  } else {
-    res.status(200).send(`Personal Greetings ${name}`);
-  }
+  res.status(200).send(`Personal Greetings ${name}`);
 });
 
-app.use('*', logger, validator, handle404, handle500);
+app.get('/person/:name', (req, res) => {
+  let name = req.params.name;
+  res.status(200).send(`Hello ${name}, from us personally`);
+});
+
+app.use('*', handle404);
+app.use(handle500);
 
 module.exports = {
   app,
