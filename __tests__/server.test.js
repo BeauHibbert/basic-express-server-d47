@@ -17,24 +17,23 @@ describe('Server Tests', () => {
       expect(response.status).toEqual(404);
     });
 
-    // test('500 if no name is in the query string', async () => {
-    //   let response = await request.get('/person');
-    //   expect(response.status).toEqual(500);
-    //   expect(response.name).toEqual('no name with request');
-    // });
+    test('500 if no name is in the query string', async () => {
+      let response = await request.get('/person');
+      expect(response.status).toEqual(500);
+      expect(response.text).toEqual('Please enter a name query parameter like this: /person?name=beau');
+    });
+  });
 
-    describe('GET route tests', () => {
-      test('/person route works with no query parameter', async() => {
-        let response = await request.get('/hello');
-        expect(response.status).toEqual(200);
-        expect(response.text).toEqual('hello');
-      });
-
-      test('/person route works with query parameter', async () => {
-        let response = await request.get('/person?name=beau');
-        expect(response.status).toEqual(200);
-        expect(response.query.name).toEqual('beau');
-      });
+  describe('GET route tests', () => {
+    test('/person route works with query parameter', async () => {
+      let response = await request.get('/person?name=beau');
+      expect(response.status).toEqual(200);
+      expect(response.text).toEqual(`Personal Greetings beau`);
+    });
+    test('/person/name route works with a provided name', async () => {
+      let response = await request.get('/person/winston');
+      expect(response.status).toEqual(200);
+      expect(response.text).toEqual(`Hello winston, from us personally`);
     });
   });
 });
